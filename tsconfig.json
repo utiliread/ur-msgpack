@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "esnext",
+        "moduleResolution": "node",
+        "declaration": true,
+        "sourceMap": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "strict": true,
+        "rootDir": "src",
+        "outDir": "dist/esm",
+        "lib": [ "esnext" ],
+        "types": [
+            "mocha",
+            "reflect-metadata"
+        ]
+    }
+}

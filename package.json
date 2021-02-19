@@ -1,0 +1,35 @@
+{
+    "name": "ur-msgpack",
+    "version": "1.5.3",
+    "main": "dist/cjs/index.js",
+    "module": "dist/esm/index.js",
+    "types": "dist/esm/index.d.ts",
+    "scripts": {
+        "build": "tsc && tsc -p tsconfig.cjs.json && rimraf dist/cjs/**/*.d.ts dist/*.spec.js*",
+        "test": "karma start --single-run --browsers ChromeHeadless karma.config.js",
+        "watch": "karma start --auto-watch --browsers ChromeDebugging karma.config.js",
+        "clean": "rimraf dist"
+    },
+    "devDependencies": {
+        "@types/chai": "^4.2.15",
+        "@types/luxon": "^1.26.0",
+        "@types/mocha": "^8.2.1",
+        "chai": "^4.3.0",
+        "karma": "^6.1.1",
+        "karma-chai": "^0.1.0",
+        "karma-chrome-launcher": "^3.1.0",
+        "karma-mocha": "^2.0.1",
+        "karma-typescript": "^5.4.0",
+        "luxon": "^1.26.0",
+        "mocha": "^8.3.0",
+        "reflect-metadata": "^0.1.13",
+        "rimraf": "^3.0.2",
+        "typescript": "^4.1.5"
+    },
+    "dependencies": {
+        "@msgpack/msgpack": "^2.4.0"
+    },
+    "peerDependencies": {
+        "luxon": "^1.26.0"
+    }
+}

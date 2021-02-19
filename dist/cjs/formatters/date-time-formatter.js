@@ -25,7 +25,15 @@ var DateTimeFormatter = /** @class */ (function () {
             return invalid;
         }
         if (Array.isArray(source) && source.length === 2) {
-            return luxon_1.DateTime.fromJSDate(source[0], {
+            var date = source[0];
+            return luxon_1.DateTime.fromObject({
+                year: date.getUTCFullYear(),
+                month: date.getUTCMonth() + 1,
+                day: date.getUTCDay(),
+                hour: date.getUTCHours(),
+                minute: date.getUTCMinutes(),
+                second: date.getUTCSeconds(),
+                millisecond: date.getUTCMilliseconds(),
                 zone: luxon_1.FixedOffsetZone.instance(source[1])
             });
         }

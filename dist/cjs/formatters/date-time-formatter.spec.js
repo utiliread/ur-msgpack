@@ -36,7 +36,19 @@ describe('deserialize', function () {
     });
     it('should correctly deserialize a datetime with offset', function () {
         var millenium = luxon_1.DateTime.fromISO("2000-01-01T00:00:00", { zone: "Europe/Copenhagen" });
-        var result = __1.deserialize(Model, msgpack_1.decode(msgpack_1.encode([[millenium.toJSDate(), millenium.offset]])));
+        var milleniumUtc = luxon_1.DateTime.fromISO("2000-01-01T00:00:00Z");
+        var result = __1.deserialize(Model, msgpack_1.decode(msgpack_1.encode([[milleniumUtc.toJSDate(), millenium.offset]])));
+        if (result) {
+            chai_1.expect(+result.dateTime).equals(+millenium);
+        }
+        else {
+            chai_1.expect.fail();
+        }
+    });
+    it('should correctly deserialize a datetime with offset and ms', function () {
+        var millenium = luxon_1.DateTime.fromISO("2000-01-01T00:00:00.427", { zone: "Europe/Copenhagen" });
+        var milleniumUtc = luxon_1.DateTime.fromISO("2000-01-01T00:00:00.427Z");
+        var result = __1.deserialize(Model, msgpack_1.decode(msgpack_1.encode([[milleniumUtc.toJSDate(), millenium.offset]])));
         if (result) {
             chai_1.expect(+result.dateTime).equals(+millenium);
         }

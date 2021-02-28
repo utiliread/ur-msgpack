@@ -34,7 +34,19 @@ describe('deserialize', function () {
     });
     it('should correctly deserialize a datetime with offset', function () {
         var millenium = DateTime.fromISO("2000-01-01T00:00:00", { zone: "Europe/Copenhagen" });
-        var result = deserialize(Model, decode(encode([[millenium.toJSDate(), millenium.offset]])));
+        var milleniumUtc = DateTime.fromISO("2000-01-01T00:00:00Z");
+        var result = deserialize(Model, decode(encode([[milleniumUtc.toJSDate(), millenium.offset]])));
+        if (result) {
+            expect(+result.dateTime).equals(+millenium);
+        }
+        else {
+            expect.fail();
+        }
+    });
+    it('should correctly deserialize a datetime with offset and ms', function () {
+        var millenium = DateTime.fromISO("2000-01-01T00:00:00.427", { zone: "Europe/Copenhagen" });
+        var milleniumUtc = DateTime.fromISO("2000-01-01T00:00:00.427Z");
+        var result = deserialize(Model, decode(encode([[milleniumUtc.toJSDate(), millenium.offset]])));
         if (result) {
             expect(+result.dateTime).equals(+millenium);
         }

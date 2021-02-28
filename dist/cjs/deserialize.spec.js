@@ -32,6 +32,14 @@ var ModelWithArrayKey = /** @class */ (function () {
         index_1.msgpackKey(3),
         __metadata("design:type", Array)
     ], ModelWithArrayKey.prototype, "stringArray", void 0);
+    __decorate([
+        index_1.msgpackKey(4),
+        __metadata("design:type", Boolean)
+    ], ModelWithArrayKey.prototype, "true", void 0);
+    __decorate([
+        index_1.msgpackKey(5),
+        __metadata("design:type", Boolean)
+    ], ModelWithArrayKey.prototype, "false", void 0);
     return ModelWithArrayKey;
 }());
 var ModelWithNamedKey = /** @class */ (function () {
@@ -53,28 +61,40 @@ var ModelWithNamedKey = /** @class */ (function () {
         index_1.msgpackKey(),
         __metadata("design:type", Array)
     ], ModelWithNamedKey.prototype, "stringArray", void 0);
+    __decorate([
+        index_1.msgpackKey(),
+        __metadata("design:type", Boolean)
+    ], ModelWithNamedKey.prototype, "true", void 0);
+    __decorate([
+        index_1.msgpackKey(),
+        __metadata("design:type", Boolean)
+    ], ModelWithNamedKey.prototype, "false", void 0);
     return ModelWithNamedKey;
 }());
 describe('deserialize', function () {
     it('should correctly deserialize to model with index keys', function () {
-        var result = index_1.deserialize(ModelWithArrayKey, msgpack_1.decode(msgpack_1.encode([1337, "hello", [1, 2], ["a", "b"]])));
+        var result = index_1.deserialize(ModelWithArrayKey, msgpack_1.decode(msgpack_1.encode([1337, "hello", [1, 2], ["a", "b"], true, false])));
         if (result) {
             chai_1.expect(result.number).equals(1337);
             chai_1.expect(result.string).equals('hello');
             chai_1.expect(result.numberArray).deep.equals([1, 2]);
             chai_1.expect(result.stringArray).deep.equals(["a", "b"]);
+            chai_1.expect(result.true).equals(true);
+            chai_1.expect(result.false).equals(false);
         }
         else {
             chai_1.expect.fail();
         }
     });
     it('should correctly deserialize to model with named keys', function () {
-        var result = index_1.deserialize(ModelWithNamedKey, msgpack_1.decode(msgpack_1.encode({ number: 1337, string: "hello", numberArray: [1, 2], stringArray: ["a", "b"] })));
+        var result = index_1.deserialize(ModelWithNamedKey, msgpack_1.decode(msgpack_1.encode({ number: 1337, string: "hello", numberArray: [1, 2], stringArray: ["a", "b"], true: true, false: false })));
         if (result) {
             chai_1.expect(result.number).equals(1337);
             chai_1.expect(result.string).equals('hello');
             chai_1.expect(result.numberArray).deep.equals([1, 2]);
             chai_1.expect(result.stringArray).deep.equals(["a", "b"]);
+            chai_1.expect(result.true).equals(true);
+            chai_1.expect(result.false).equals(false);
         }
         else {
             chai_1.expect.fail();

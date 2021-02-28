@@ -30,6 +30,14 @@ var ModelWithArrayKey = /** @class */ (function () {
         msgpackKey(3),
         __metadata("design:type", Array)
     ], ModelWithArrayKey.prototype, "stringArray", void 0);
+    __decorate([
+        msgpackKey(4),
+        __metadata("design:type", Boolean)
+    ], ModelWithArrayKey.prototype, "true", void 0);
+    __decorate([
+        msgpackKey(5),
+        __metadata("design:type", Boolean)
+    ], ModelWithArrayKey.prototype, "false", void 0);
     return ModelWithArrayKey;
 }());
 var ModelWithNamedKey = /** @class */ (function () {
@@ -51,28 +59,40 @@ var ModelWithNamedKey = /** @class */ (function () {
         msgpackKey(),
         __metadata("design:type", Array)
     ], ModelWithNamedKey.prototype, "stringArray", void 0);
+    __decorate([
+        msgpackKey(),
+        __metadata("design:type", Boolean)
+    ], ModelWithNamedKey.prototype, "true", void 0);
+    __decorate([
+        msgpackKey(),
+        __metadata("design:type", Boolean)
+    ], ModelWithNamedKey.prototype, "false", void 0);
     return ModelWithNamedKey;
 }());
 describe('deserialize', function () {
     it('should correctly deserialize to model with index keys', function () {
-        var result = deserialize(ModelWithArrayKey, decode(encode([1337, "hello", [1, 2], ["a", "b"]])));
+        var result = deserialize(ModelWithArrayKey, decode(encode([1337, "hello", [1, 2], ["a", "b"], true, false])));
         if (result) {
             expect(result.number).equals(1337);
             expect(result.string).equals('hello');
             expect(result.numberArray).deep.equals([1, 2]);
             expect(result.stringArray).deep.equals(["a", "b"]);
+            expect(result.true).equals(true);
+            expect(result.false).equals(false);
         }
         else {
             expect.fail();
         }
     });
     it('should correctly deserialize to model with named keys', function () {
-        var result = deserialize(ModelWithNamedKey, decode(encode({ number: 1337, string: "hello", numberArray: [1, 2], stringArray: ["a", "b"] })));
+        var result = deserialize(ModelWithNamedKey, decode(encode({ number: 1337, string: "hello", numberArray: [1, 2], stringArray: ["a", "b"], true: true, false: false })));
         if (result) {
             expect(result.number).equals(1337);
             expect(result.string).equals('hello');
             expect(result.numberArray).deep.equals([1, 2]);
             expect(result.stringArray).deep.equals(["a", "b"]);
+            expect(result.true).equals(true);
+            expect(result.false).equals(false);
         }
         else {
             expect.fail();

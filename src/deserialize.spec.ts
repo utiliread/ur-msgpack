@@ -13,6 +13,10 @@ class ModelWithArrayKey {
     numberArray!: number[];
     @msgpackKey(3)
     stringArray!: string[];
+    @msgpackKey(4)
+    true!: boolean;
+    @msgpackKey(5)
+    false!: boolean;
 }
 
 class ModelWithNamedKey {
@@ -24,17 +28,23 @@ class ModelWithNamedKey {
     numberArray?: number[];
     @msgpackKey()
     stringArray?: string[];
+    @msgpackKey()
+    true!: boolean;
+    @msgpackKey()
+    false!: boolean;
 }
 
 describe('deserialize', () => {
     it('should correctly deserialize to model with index keys', () => {
-        const result = deserialize(ModelWithArrayKey, decode(encode([1337, "hello", [1, 2], ["a", "b"]])));
+        const result = deserialize(ModelWithArrayKey, decode(encode([1337, "hello", [1, 2], ["a", "b"], true, false])));
 
         if (result) {
             expect(result.number).equals(1337);
             expect(result.string).equals('hello');
             expect(result.numberArray).deep.equals([1, 2]);
             expect(result.stringArray).deep.equals(["a", "b"]);
+            expect(result.true).equals(true);
+            expect(result.false).equals(false);
         }
         else {
             expect.fail();
@@ -42,13 +52,15 @@ describe('deserialize', () => {
     });
 
     it('should correctly deserialize to model with named keys', () => {
-        const result = deserialize(ModelWithNamedKey, decode(encode({ number: 1337, string: "hello", numberArray: [1, 2], stringArray: ["a", "b"] })));
+        const result = deserialize(ModelWithNamedKey, decode(encode({ number: 1337, string: "hello", numberArray: [1, 2], stringArray: ["a", "b"], true: true, false: false })));
 
         if (result) {
             expect(result.number).equals(1337);
             expect(result.string).equals('hello');
             expect(result.numberArray).deep.equals([1, 2]);
             expect(result.stringArray).deep.equals(["a", "b"]);
+            expect(result.true).equals(true);
+            expect(result.false).equals(false);
         }
         else {
             expect.fail();

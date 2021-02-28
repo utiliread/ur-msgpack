@@ -25,7 +25,8 @@ describe('deserialize', () => {
 
     it('should correctly deserialize a datetime with offset', () => {
         const millenium = DateTime.fromISO("2000-01-01T00:00:00", { zone: "Europe/Copenhagen" });
-        const result = deserialize(Model, decode(encode([[millenium.toJSDate(), millenium.offset]])));
+        const milleniumUtc = DateTime.fromISO("2000-01-01T00:00:00Z");
+        const result = deserialize(Model, decode(encode([[milleniumUtc.toJSDate(), millenium.offset]])));
 
         if (result) {
             expect(+result.dateTime).equals(+millenium);

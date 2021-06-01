@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.dateTimeFormatter = void 0;
 var luxon_1 = require("luxon");
-var invalid = luxon_1.DateTime.invalid("invalid");
 var DateTimeFormatter = /** @class */ (function () {
     function DateTimeFormatter() {
     }
@@ -22,7 +21,7 @@ var DateTimeFormatter = /** @class */ (function () {
     };
     DateTimeFormatter.prototype.deserialize = function (source) {
         if (!source) {
-            return invalid;
+            return source;
         }
         if (Array.isArray(source) && source.length === 2) {
             var date = source[0];

@@ -1,8 +1,6 @@
 import { DateTime, FixedOffsetZone } from "luxon";
 import { MessagePackFormatter } from "../msgpack-formatter";
 
-const invalid = DateTime.invalid("invalid");
-
 class DateTimeFormatter implements MessagePackFormatter {
     serialize(source: any) {
         if (!source) {
@@ -23,7 +21,7 @@ class DateTimeFormatter implements MessagePackFormatter {
 
     deserialize(source: any) {
         if (!source) {
-            return invalid;
+            return source;
         }
 
         if (Array.isArray(source) && source.length === 2) {

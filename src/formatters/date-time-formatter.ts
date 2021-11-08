@@ -32,7 +32,8 @@ class DateTimeFormatter implements MessagePackFormatter {
         hour: date.getUTCHours(),
         minute: date.getUTCMinutes(),
         second: date.getUTCSeconds(),
-        millisecond: date.getUTCMilliseconds(),
+        millisecond: date.getUTCMilliseconds()
+      }, {
         zone: FixedOffsetZone.instance(source[1]),
       });
     } else {

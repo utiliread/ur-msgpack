@@ -3,8 +3,8 @@ import { getPropertyMetadata, getPropertyNames } from "./msgpack-key";
 import { MessagePackMetadata } from "./msgpack-metadata";
 
 export function deserialize<T>(
-  type: { new (): T },
-  source: any
+  source: any,
+  type: { new (): T }
 ): T | null | undefined {
   if (source === undefined || source === null) {
     return source;
@@ -75,7 +75,7 @@ function getValue<T>(
       }
     } else if (type) {
       if (isArray(source[key])) {
-        return source[key].map((item: any) => deserialize(type, item));
+        return source[key].map((item: any) => deserialize(item, type));
       } else {
         return undefined;
       }
@@ -85,7 +85,7 @@ function getValue<T>(
   if (formatterDeserialize) {
     return formatterDeserialize(source[key]);
   } else if (!isPrimitive(propertyType)) {
-    return deserialize(propertyType, source[key]);
+    return deserialize(source[key], propertyType);
   } else {
     return source[key];
   }

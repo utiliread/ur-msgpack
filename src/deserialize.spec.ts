@@ -36,10 +36,8 @@ class ModelWithNamedKey {
 
 describe("deserialize", () => {
   it("should correctly deserialize to model with index keys", () => {
-    const result = deserialize(
-      ModelWithArrayKey,
-      decode(encode([1337, "hello", [1, 2], ["a", "b"], true, false]))
-    );
+    const source = decode(encode([1337, "hello", [1, 2], ["a", "b"], true, false]));
+    const result = deserialize(source, ModelWithArrayKey);
 
     if (result) {
       expect(result.number).equals(1337);
@@ -54,19 +52,17 @@ describe("deserialize", () => {
   });
 
   it("should correctly deserialize to model with named keys", () => {
-    const result = deserialize(
-      ModelWithNamedKey,
-      decode(
-        encode({
-          number: 1337,
-          string: "hello",
-          numberArray: [1, 2],
-          stringArray: ["a", "b"],
-          true: true,
-          false: false,
-        })
-      )
+    const source = decode(
+      encode({
+        number: 1337,
+        string: "hello",
+        numberArray: [1, 2],
+        stringArray: ["a", "b"],
+        true: true,
+        false: false,
+      })
     );
+    const result = deserialize(source, ModelWithNamedKey);
 
     if (result) {
       expect(result.number).equals(1337);

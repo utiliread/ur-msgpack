@@ -1,10 +1,11 @@
-import {
+import type {
   MessagePackFormatter,
   MessagePackFormatterOfT,
 } from "./msgpack-formatter";
+
 import { dateTimeFormatter } from "./formatters/date-time-formatter";
-import { msgpackKey } from "./msgpack-key";
 import { deserialize } from "./deserialize";
+import { msgpackKey } from "./msgpack-key";
 
 export {
   deserialize,

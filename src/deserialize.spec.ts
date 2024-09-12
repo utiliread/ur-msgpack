@@ -36,7 +36,9 @@ class ModelWithNamedKey {
 
 describe("deserialize", () => {
   it("should correctly deserialize to model with index keys", () => {
-    const source = decode(encode([1337, "hello", [1, 2], ["a", "b"], true, false]));
+    const source = decode(
+      encode([1337, "hello", [1, 2], ["a", "b"], true, false]),
+    );
     const result = deserialize(source, ModelWithArrayKey);
 
     if (result) {
@@ -60,7 +62,7 @@ describe("deserialize", () => {
         stringArray: ["a", "b"],
         true: true,
         false: false,
-      })
+      }),
     );
     const result = deserialize(source, ModelWithNamedKey);
 

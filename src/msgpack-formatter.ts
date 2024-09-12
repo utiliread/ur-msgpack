@@ -4,7 +4,6 @@ export interface MessagePackFormatter {
 }
 
 export interface MessagePackFormatterOfT<T> extends MessagePackFormatter {
-    serialize?(source: T): any;
-    deserialize?(source: any): T;
-  }
-  
+  serialize?(source: T): any;
+  deserialize?(source: any): T;
+}

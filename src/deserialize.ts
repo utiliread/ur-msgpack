@@ -4,7 +4,7 @@ import { MessagePackMetadata } from "./msgpack-metadata";
 
 export function deserialize<T>(
   source: any,
-  type: { new (): T }
+  type: { new (): T },
 ): T | null | undefined {
   if (source === undefined || source === null) {
     return source;
@@ -42,7 +42,7 @@ export function deserialize<T>(
         source,
         destination,
         propertyName,
-        propertyMetadata
+        propertyMetadata,
       );
     } else if (source[propertyName] !== undefined) {
       destination[propertyName] = source[propertyName];
@@ -56,7 +56,7 @@ function getValue<T>(
   source: any,
   destination: T,
   propertyName: string,
-  propertyMetadata: MessagePackMetadata
+  propertyMetadata: MessagePackMetadata,
 ) {
   let key = propertyMetadata.key ?? propertyName;
   let propertyType = getPropertyType(destination, propertyName);
@@ -95,7 +95,7 @@ function getPropertyType(target: any, propertyName: string) {
   return Reflect.getOwnMetadata(
     "design:type",
     Object.getPrototypeOf(target),
-    propertyName
+    propertyName,
   );
 }
 

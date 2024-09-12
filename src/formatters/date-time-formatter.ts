@@ -25,17 +25,20 @@ class DateTimeFormatter implements MessagePackFormatter {
 
     if (Array.isArray(source) && source.length === 2) {
       const date = <Date>source[0];
-      return DateTime.fromObject({
-        year: date.getUTCFullYear(),
-        month: date.getUTCMonth() + 1,
-        day: date.getUTCDate(),
-        hour: date.getUTCHours(),
-        minute: date.getUTCMinutes(),
-        second: date.getUTCSeconds(),
-        millisecond: date.getUTCMilliseconds()
-      }, {
-        zone: FixedOffsetZone.instance(source[1]),
-      });
+      return DateTime.fromObject(
+        {
+          year: date.getUTCFullYear(),
+          month: date.getUTCMonth() + 1,
+          day: date.getUTCDate(),
+          hour: date.getUTCHours(),
+          minute: date.getUTCMinutes(),
+          second: date.getUTCSeconds(),
+          millisecond: date.getUTCMilliseconds(),
+        },
+        {
+          zone: FixedOffsetZone.instance(source[1]),
+        },
+      );
     } else {
       return DateTime.fromJSDate(source);
     }

@@ -8,7 +8,7 @@ const PROPERTY_NAMES_METADATA_KEY = "msgpackKeyNames";
  * @param keyOrMetadata The array index, map key name or metadata describing how to construct the property
  */
 export function msgpackKey(
-  keyOrMetadata?: number | string | MessagePackMetadata
+  keyOrMetadata?: number | string | MessagePackMetadata,
 ) {
   let metadata: MessagePackMetadata = {};
 
@@ -32,19 +32,19 @@ export function msgpackKey(
       PROPERTY_METADATA_KEY,
       metadata,
       target,
-      propertyKey
+      propertyKey,
     );
   };
 }
 
 export function getPropertyMetadata(
   instance: any,
-  propertyKey: string
+  propertyKey: string,
 ): MessagePackMetadata | undefined {
   return Reflect.getOwnMetadata(
     PROPERTY_METADATA_KEY,
     Object.getPrototypeOf(instance),
-    propertyKey
+    propertyKey,
   );
 }
 
@@ -52,7 +52,7 @@ export function getPropertyNames(instance: any): string[] {
   return (
     Reflect.getOwnMetadata(
       PROPERTY_NAMES_METADATA_KEY,
-      Object.getPrototypeOf(instance)
+      Object.getPrototypeOf(instance),
     ) || []
   );
 }
